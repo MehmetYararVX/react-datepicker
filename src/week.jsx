@@ -23,7 +23,7 @@ export default class Week extends React.Component {
       PropTypes.shape({
         start: PropTypes.instanceOf(Date),
         end: PropTypes.instanceOf(Date),
-      })
+      }),
     ),
     filterDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
@@ -66,6 +66,7 @@ export default class Week extends React.Component {
   };
 
   handleDayClick = (day, event) => {
+    console.log("week.handleDayClick", { day, event });
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event);
     }
@@ -97,7 +98,7 @@ export default class Week extends React.Component {
     const startOfWeek = utils.getStartOfWeek(
       this.props.day,
       this.props.locale,
-      this.props.calendarStartDay
+      this.props.calendarStartDay,
     );
     const days = [];
     const weekNumber = this.formatWeekNumber(startOfWeek);
@@ -111,12 +112,23 @@ export default class Week extends React.Component {
           weekNumber={weekNumber}
           onClick={onClickAction}
           ariaLabelPrefix={this.props.ariaLabelPrefix}
-        />
+        />,
       );
     }
     return days.concat(
       [0, 1, 2, 3, 4, 5, 6].map((offset) => {
         const day = utils.addDays(startOfWeek, offset);
+        // console.log("renderDays", {
+        //   offset,
+        //   startOfWeek,
+        //   day,
+        //   props: {
+        //     day: this.props.day,
+        //     locale: this.props.locale,
+        //     calendarStartDay: this.props.calendarStartDay,
+        //   },
+        // });
+
         return (
           <Day
             ariaLabelPrefixWhenEnabled={this.props.chooseDayAriaLabelPrefix}
@@ -158,7 +170,7 @@ export default class Week extends React.Component {
             locale={this.props.locale}
           />
         );
-      })
+      }),
     );
   };
 

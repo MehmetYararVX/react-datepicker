@@ -5,34 +5,18 @@ import logo from "./logo.png";
 import DatePicker from "react-datepicker";
 
 const Example = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [startDate, setStartDate] = useState(new Date());
-  const [isScrolled, setIsScrolled] = useState(true);
-
-  useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleScroll = () => {
-    const Show = window.scrollY < 400;
-    if (Show) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+  const initialDateInZulu = new Date("2023-08-16T00:00:00.000");
+  const [startDate, setStartDate] = useState(initialDateInZulu);
+  const handleChange = (date) => {
+    console.log("handleChange", {
+      date,
+      dateString: date.toString(),
+      dateISOString: date.toISOString(),
+    });
+    setStartDate(date);
   };
 
-  return (
-    <DatePicker
-      open={isOpen && isScrolled}
-      selected={startDate}
-      onChange={(date) => {
-        setStartDate(date);
-        setIsOpen(false);
-      }}
-      onInputClick={() => setIsOpen(true)}
-    />
-  );
+  return <DatePicker selected={startDate} onChange={handleChange} />;
 };
 
 const Root = () => (

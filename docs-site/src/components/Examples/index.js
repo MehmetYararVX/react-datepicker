@@ -108,7 +108,7 @@ export default class exampleComponents extends React.Component {
     hljs.registerLanguage("javascript", hljsJavaScriptLanguage);
   }
 
-  examples = [
+  defaultExamples = [
     {
       title: "Default",
       component: Default,
@@ -503,6 +503,8 @@ export default class exampleComponents extends React.Component {
     },
   ];
 
+  examples = [];
+
   handleAnchorClick = (e, id) => {
     e.preventDefault();
     window.history.replaceState(null, document.title, `#${id}`);
@@ -526,7 +528,7 @@ export default class exampleComponents extends React.Component {
                 onClick={(e) =>
                   this.handleAnchorClick(
                     e,
-                    `example-${slugify(example.title, { lower: true })}`
+                    `example-${slugify(example.title, { lower: true })}`,
                   )
                 }
               >
